@@ -43,8 +43,17 @@ main {
 
 #right {
     margin-left: 50px;
-    flex-grow: 3;
+    flex-grow: 1;
 }
 
 
+@media (max-width: 650px) {
+    main {
+        flex-direction: column;
+        align-items: center;
+    }
 
+    #right {
+        flex-grow: 1;
+    }
+}
