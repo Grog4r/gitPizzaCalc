@@ -1,0 +1,50 @@
+@font-face { font-family: 'Gameplay';
+    src: local('Gameplay');
+    url('/Gameplay.ttf') format('truetype'); }
+
+input[type='number'] {
+    -moz-appearance:textfield;
+}
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+html {
+    font-family: "Gameplay", "Lucida Console";
+    margin: 10px;
+    padding: 10px;
+}
+
+input {
+    margin: 10px;
+    padding: 10px;
+}
+
+h1 {
+    margin-top: 0px;
+}
+
+fieldset {
+    margin: 10px;
+    padding: 10px;
+}
+
+main {
+    display: flex;
+    flex-direction: row;
+}
+
+#inputs {
+    flex-grow: 1;
+}
+
+#right {
+    margin-left: 50px;
+    flex-grow: 3;
+}
+
+
+

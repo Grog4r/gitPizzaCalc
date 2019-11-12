@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Pizza Calculator</title>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css"/>
+    <meta charset="UTF-8"/>
+</head>
+
+
+<body>
+<header>
+    <h1>Pizza Calculator</h1>
+</header>
+
+<main>
+    <section id="inputs">
+        <form>
+            <fieldset>
+                <legend><b>Select Pizza Shape</b></legend>
+
+                <div class="control">
+                    <label class="radio">
+                        <input type="radio" name="shape" id="round" onclick="checkRadio('round')" checked>
+                        Round
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="shape" id="rectangle" onclick="checkRadio('rectangle')">
+                        Rectangle
+                    </label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend><b>Input Parameters here</b></legend>
+                <input type="number" id="diameter" placeholder="Diameter in cm" pattern="^[0-9]+$"
+                       title="Only numbers are allowed."> <span id="roundP">cm</span>
+                <input type="number" id="length" placeholder="Length in cm" hidden pattern="^[0-9]+$"
+                       title="Only numbers are allowed."> <span id="rectP1" hidden>cm<br></span>
+                <input type="number" id="width" placeholder="Width in cm" hidden pattern="^[0-9]+$"
+                       title="Only numbers are allowed."> <span id="rectP2" hidden>cm</span>
+            </fieldset>
+
+            <fieldset>
+                <legend><b>Input Price here</b></legend>
+                <input type="number" id="price" placeholder="Price in €"> €
+            </fieldset>
+            <input type="button" value="Calculate" onclick="calc()">
+        </form>
+        <p id="areaPerEuroResult">&nbsp;</p><br>
+
+    </section>
+
+    <section id="right">
+
+        <h1>RIGHT SIDE</h1>
+
+    </section>
+</main>
+
+<footer>
+    <p>Created by Felix Elsner and Niklas Küchen</p>
+</footer>
+
+</body>
+
+</html>
