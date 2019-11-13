@@ -1,3 +1,13 @@
+let P = JSON.parse(sessionStorage.getItem('P'));
+sessionStorage.setItem('P', JSON.stringify(P));
+if(sessionStorage.getItem('P') === 'null') {
+    console.log("NULL in sessionzeug");
+    P = [];
+}
+console.log(sessionStorage.getItem('P'));
+
+window.onload = updatePizzaList;
+
 function calc() {
 
     if (document.getElementById("round").checked) {
@@ -14,9 +24,9 @@ function calc() {
             console.log(areaPerEuro + " cm^2 €");
             document.getElementById("areaPerEuroResult").innerHTML = areaPerEuro + "cm² pro €";
 
-            P.push(new RoundPizza(radius*2, 1*price, 1*area, 1*areaPerEuro));
+            P.push(new RoundPizza(radius*2, 1*price, area, areaPerEuro));
 
-            myStorage.setItem('P', JSON.stringify(P));
+            sessionStorage.setItem('P', JSON.stringify(P));
             updatePizzaList();
         }
     } else {
@@ -33,13 +43,12 @@ function calc() {
             let areaPerEuro = area / price;
             console.log(areaPerEuro + " cm^2 €");
             document.getElementById("areaPerEuroResult").innerHTML = areaPerEuro + "cm² pro €";
-            P.push(new RectPizza(1*width, 1*length, 1*price, 1*area, 1*areaPerEuro));
-            myStorage.setItem('P', JSON.stringify(P));
+            P.push(new RectPizza(1*width, 1*length, 1*price, area, areaPerEuro));
+            sessionStorage.setItem('P', JSON.stringify(P));
 
             updatePizzaList();
         }
     }
-    console.log("DONT TOUCH ME YET!")
 }
 
 function checkRadio(shape) {
@@ -63,14 +72,14 @@ function checkRadio(shape) {
 }
 
 function updatePizzaList() {
-    let PList = JSON.parse(myStorage.getItem('P'));
-    document.getElementById("pizzaList").innerHTML = "";
-    PList.forEach( (element) => {
-        let innerHTML = `<li> ${element.price}€, ${element.areaPerEuro} cm²</li>`;
-        document.getElementById("pizzaList").innerHTML += innerHTML;
-    })
-    let price = PList[0].price;
-    console.log(price);
+    if(sessionStorage.getItem('P') !== 'null') {
+        let PList = JSON.parse(sessionStorage.getItem('P'));
+        document.getElementById("pizzaList").innerHTML = "";
+        PList.forEach((element) => {
+            let innerHTML = `<li class="pListItem"> ${element.price}€, ${element.areaPerEuro} cm²</li>`;
+            document.getElementById("pizzaList").innerHTML += innerHTML;
+        })
+    }
 }
 
 function RoundPizza(diameter, price, area, areaPerEuro) {
@@ -88,11 +97,11 @@ function RectPizza(width, length, price, area, areaPerEuro) {
     this.areaPerEuro = areaPerEuro;
 }
 
-myStorage = localStorage;
+function sort() {
+    let pizzas = JSON.parse(sessionStorage.getItem('P'));
+    let Pcurrent = [];
+    console.log(pizzas);
+    pizzas.forEach( (pizza) => {
 
-let P = [];
-myStorage.setItem('P', JSON.stringify(P));
-console.log(myStorage.getItem('P'));
-
-
-
+    });
+}

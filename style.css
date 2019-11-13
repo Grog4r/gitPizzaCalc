@@ -46,6 +46,21 @@ main {
     flex-grow: 3;
 }
 
+#right ul {
+    list-style: none;
+}
+
+#pizzaOverviewH1 {
+    margin-left: 45px;
+}
+
+.pListItem {
+    background-color: #00B7FF;
+    padding: 5px;
+    margin: 5px;
+    color: white;
+}
+
 
 @media (max-width: 650px) {
     main {
