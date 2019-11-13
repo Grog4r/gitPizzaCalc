@@ -24,10 +24,7 @@ function calc() {
             console.log(areaPerEuro + " cm^2 €");
             document.getElementById("areaPerEuroResult").innerHTML = areaPerEuro + "cm² pro €";
 
-            P.push(new RoundPizza(radius*2, 1*price, area, areaPerEuro));
-
-            sessionStorage.setItem('P', JSON.stringify(P));
-            updatePizzaList();
+            sortIn(new RoundPizza(radius*2, 1*price, area, areaPerEuro));
         }
     } else {
         if (!document.getElementById("width").value ||
@@ -43,10 +40,7 @@ function calc() {
             let areaPerEuro = area / price;
             console.log(areaPerEuro + " cm^2 €");
             document.getElementById("areaPerEuroResult").innerHTML = areaPerEuro + "cm² pro €";
-            P.push(new RectPizza(1*width, 1*length, 1*price, area, areaPerEuro));
-            sessionStorage.setItem('P', JSON.stringify(P));
-
-            updatePizzaList();
+            sortIn(new RectPizza(1*width, 1*length, 1*price, area, areaPerEuro));
         }
     }
 }
@@ -76,9 +70,10 @@ function updatePizzaList() {
         let PList = JSON.parse(sessionStorage.getItem('P'));
         document.getElementById("pizzaList").innerHTML = "";
         PList.forEach((element) => {
-            let innerHTML = `<li class="pListItem"> ${element.price}€, ${element.areaPerEuro} cm²</li>`;
+            let innerHTML = `<li class="pListItem">${element.areaPerEuro.toFixed(2)} cm²,
+                ${element.price.toFixed(2)}€ </li>`;
             document.getElementById("pizzaList").innerHTML += innerHTML;
-        })
+        });
     }
 }
 
@@ -97,11 +92,61 @@ function RectPizza(width, length, price, area, areaPerEuro) {
     this.areaPerEuro = areaPerEuro;
 }
 
-function sort() {
-    let pizzas = JSON.parse(sessionStorage.getItem('P'));
-    let Pcurrent = [];
-    console.log(pizzas);
-    pizzas.forEach( (pizza) => {
+function sortIn(newPizza) {
 
-    });
+    let pizzas = JSON.parse(sessionStorage.getItem('P'));
+    let PCurrent = [];
+
+    if(pizzas === null) {
+        console.log("SORTER: Pizza list was empty, new Pizza added.");
+        PCurrent.push(newPizza);
+        sessionStorage.setItem('P', JSON.stringify(PCurrent));
+        updatePizzaList();
+    }
+
+    if(pizzas !== null) {
+        let newPizzaSortedIn = false;
+
+
+        if(newPizza.areaPerEuro > pizzas[0].areaPerEuro) {              // Checks if newPizza is smallest current
+            PCurrent.push(newPizza);
+            console.log("SORTER: New Pizza was sorted in.");
+            for(let k = 0; k < pizzas.length; k++) {
+                PCurrent.push(pizzas[k]);
+                console.log("SORTER: Pizza from list was sorted in.");
+            }
+        } else {
+            for(let i = 0; i < pizzas.length; i++) {
+
+                if(!newPizzaSortedIn) {
+
+                    if(pizzas[i].areaPerEuro >= newPizza.areaPerEuro) {              //Pizzas[i] bigger than newPizza
+                        PCurrent.push(pizzas[i]);
+                        console.log("SORTER: Pizza from list was sorted in.");
+                    } else if(pizzas[i].areaPerEuro < newPizza.areaPerEuro) {
+                        PCurrent.push(newPizza);
+                        console.log("SORTER: New Pizza was sorted in.");
+                        newPizzaSortedIn = true;
+                        PCurrent.push(pizzas[i]);
+                        console.log("SORTER: Pizza from list was sorted in.");
+                    }
+
+                } else {
+                    PCurrent.push(pizzas[i]);
+                    console.log("SORTER: Pizza from list was sorted in.");
+                }
+            }
+
+            if(!newPizzaSortedIn) {
+                PCurrent.push(newPizza);
+            }
+
+        }
+
+        sessionStorage.setItem('P', JSON.stringify(PCurrent));
+        updatePizzaList();
+    }
+    //console.log(PCurrent);
+    P = PCurrent;
+
 }
