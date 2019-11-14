@@ -8,6 +8,9 @@ console.log(sessionStorage.getItem('P'));
 
 window.onload = updatePizzaList;
 
+let roundCounter = 0;
+let rectCounter = 0;
+
 function calc() {
 
     if (document.getElementById("round").checked) {
@@ -24,7 +27,9 @@ function calc() {
             console.log(areaPerEuro + " cm^2 €");
             document.getElementById("areaPerEuroResult").innerHTML = areaPerEuro + "cm² pro €";
 
-            sortIn(new RoundPizza(radius*2, 1*price, area, areaPerEuro));
+            roundCounter++;
+            let name = roundCounter + ". Round";
+            sortIn(new RoundPizza(radius*2, 1*price, area, areaPerEuro, name));
         }
     } else {
         if (!document.getElementById("width").value ||
@@ -40,7 +45,10 @@ function calc() {
             let areaPerEuro = area / price;
             console.log(areaPerEuro + " cm^2 €");
             document.getElementById("areaPerEuroResult").innerHTML = areaPerEuro + "cm² pro €";
-            sortIn(new RectPizza(1*width, 1*length, 1*price, area, areaPerEuro));
+
+            rectCounter++;
+            let name = rectCounter + ". Rectangular";
+            sortIn(new RectPizza(1*width, 1*length, 1*price, area, areaPerEuro, name));
         }
     }
 }
@@ -68,28 +76,31 @@ function checkRadio(shape) {
 function updatePizzaList() {
     if(sessionStorage.getItem('P') !== 'null') {
         let PList = JSON.parse(sessionStorage.getItem('P'));
-        document.getElementById("pizzaList").innerHTML = "";
+        document.getElementById("pizzaList").innerHTML = "<tr><th>Name:</th><th>Area per Euro:</th>" +
+            "<th>Price:</th><th class='delete'>Delete:</thclass></tr>";
         PList.forEach((element) => {
-            let innerHTML = `<li class="pListItem">${element.areaPerEuro.toFixed(2)} cm²,
-                ${element.price.toFixed(2)}€ </li>`;
+            let innerHTML = `<tr><td>${element.name}</td><td>${element.areaPerEuro.toFixed(2)}cm²/€</td>
+                <td>${element.price.toFixed(2)}€</td></tr>`;
             document.getElementById("pizzaList").innerHTML += innerHTML;
         });
     }
 }
 
-function RoundPizza(diameter, price, area, areaPerEuro) {
+function RoundPizza(diameter, price, area, areaPerEuro, name) {
     this.diameter = diameter;
     this.price = price;
     this.area = area;
     this.areaPerEuro = areaPerEuro;
+    this.name = name;
 }
 
-function RectPizza(width, length, price, area, areaPerEuro) {
+function RectPizza(width, length, price, area, areaPerEuro, name) {
     this.width = width;
     this.height = length;
     this.price = price;
     this.area = area;
     this.areaPerEuro = areaPerEuro;
+    this.name = name;
 }
 
 function sortIn(newPizza) {

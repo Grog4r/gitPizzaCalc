@@ -54,14 +54,6 @@ main {
     margin-left: 45px;
 }
 
-.pListItem {
-    background-color: #00B7FF;
-    padding: 5px;
-    margin: 5px;
-    color: white;
-}
-
-
 @media (max-width: 650px) {
     main {
         flex-direction: column;
@@ -71,4 +63,20 @@ main {
     #right {
         flex-grow: 1;
     }
+}
+
+#pizzaList td {
+    padding: 10px;
+    background-color: #00B7FF;
+    width: 200px;
+}
+
+#pizzaList th {
+    padding: 10px;
+    background-color: darkorange;
+    width: 200px;
+}
+
+.delete {
+    width: 30px;
 }
