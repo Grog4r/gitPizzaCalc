@@ -25,7 +25,7 @@ function calc() {
             let price = document.getElementById("price").value;
             let areaPerEuro = area / price;
             console.log(areaPerEuro + " cm^2 €");
-            document.getElementById("areaPerEuroResult").innerHTML = areaPerEuro + "cm² pro €";
+            //document.getElementById("areaPerEuroResult").innerHTML = areaPerEuro + "cm² pro €";
 
             roundCounter++;
             let name = roundCounter + ". Round";
@@ -44,7 +44,7 @@ function calc() {
             let price = document.getElementById("price").value;
             let areaPerEuro = area / price;
             console.log(areaPerEuro + " cm^2 €");
-            document.getElementById("areaPerEuroResult").innerHTML = areaPerEuro + "cm² pro €";
+            //document.getElementById("areaPerEuroResult").innerHTML = areaPerEuro + "cm² pro €";
 
             rectCounter++;
             let name = rectCounter + ". Rectangular";
@@ -138,7 +138,7 @@ function sortIn(newPizza) {
         PCurrent.push(newPizza);
         sessionStorage.setItem('P', JSON.stringify(PCurrent));
         updatePizzaList();
-    } else if(pizzas !== null) {
+    } else if(pizzas) {
         let newPizzaSortedIn = false;
 
 
