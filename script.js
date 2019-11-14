@@ -77,7 +77,7 @@ function updatePizzaList() {
     if(sessionStorage.getItem('P') !== 'null') {
         let PList = JSON.parse(sessionStorage.getItem('P'));
         document.getElementById("pizzaList").innerHTML = "<tr><th>Name:</th><th>Area per Euro:</th>" +
-            "<th>Price:</th><th class='delete'>Delete:</thclass></tr>";
+            "<th>Price:</th></tr>";
         PList.forEach((element) => {
             let innerHTML = `<tr><td>${element.name}</td><td>${element.areaPerEuro.toFixed(2)}cm²/€</td>
                 <td>${element.price.toFixed(2)}€</td></tr>`;
