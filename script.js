@@ -76,11 +76,14 @@ function checkRadio(shape) {
 function updatePizzaList() {
     if(sessionStorage.getItem('P') !== 'null') {
         let PList = JSON.parse(sessionStorage.getItem('P'));
-        document.getElementById("pizzaList").innerHTML = "<tr><th>Name:</th><th>Area per Euro:</th>" +
-            "<th>Price:</th></tr>";
+        document.getElementById("pizzaList").innerHTML = "<tr>" +
+            "<th class='text'>Name:</th><th class='text'>Area per Euro:</th>" +
+            "<th class='text'>Price:</th><th class='delete'>&nbsp;</th></tr>";
         PList.forEach((element) => {
-            let innerHTML = `<tr><td>${element.name}</td><td>${element.areaPerEuro.toFixed(2)}cm²/€</td>
-                <td>${element.price.toFixed(2)}€</td></tr>`;
+            let innerHTML = `<tr><td class="text">${element.name}</td>
+                <td class="text">${element.areaPerEuro.toFixed(2)}cm²/€</td>
+                <td class="text">${element.price.toFixed(2)}€</td>
+                <td class="delete"><img src="delete.png" width="20px" height="20px" onclick="deletePizza('${element.name}');"></td></tr>`;
             document.getElementById("pizzaList").innerHTML += innerHTML;
         });
     }
@@ -103,6 +106,23 @@ function RectPizza(width, length, price, area, areaPerEuro, name) {
     this.name = name;
 }
 
+function deletePizza(name) {
+    let pizzas = JSON.parse(sessionStorage.getItem('P'));
+    let deletedPizza = false;
+    for(let i = 0; i < pizzas.length; i++) {
+        if(pizzas[i].name === name) {
+            pizzas.splice(i, 1);
+            deletedPizza = true;
+        }
+    }
+    if(!deletedPizza) {
+        console.error("Something went wwrong deleting Item...");
+    } else {
+        sessionStorage.setItem('P', JSON.stringify(pizzas));
+        updatePizzaList();
+    }
+}
+
 function sortIn(newPizza) {
 
     let pizzas = JSON.parse(sessionStorage.getItem('P'));
@@ -113,9 +133,12 @@ function sortIn(newPizza) {
         PCurrent.push(newPizza);
         sessionStorage.setItem('P', JSON.stringify(PCurrent));
         updatePizzaList();
-    }
-
-    if(pizzas !== null) {
+    } else if(!pizzas[0]) {
+        console.log("SORTER: Pizza list was empty, new Pizza added.");
+        PCurrent.push(newPizza);
+        sessionStorage.setItem('P', JSON.stringify(PCurrent));
+        updatePizzaList();
+    } else if(pizzas !== null) {
         let newPizzaSortedIn = false;
 
 
